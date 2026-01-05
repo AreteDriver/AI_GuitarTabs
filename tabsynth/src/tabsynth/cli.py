@@ -24,17 +24,17 @@ def demo_chords():
         ChordEvent(
             pitches_hz=[329.63, 392.00, 493.88],  # E G# B
             start=0.0,
-            duration=1.0
+            duration=1.0,
         ),
         ChordEvent(
             pitches_hz=[440.00, 554.37, 659.26],  # A C# E
             start=1.0,
-            duration=1.0
+            duration=1.0,
         ),
         ChordEvent(
             pitches_hz=[329.63, 392.00, 493.88],  # E G B
             start=2.0,
-            duration=1.0
+            duration=1.0,
         ),
     ]
     return events
@@ -46,14 +46,14 @@ def demo_mixed():
         ChordEvent(
             pitches_hz=[329.63, 415.30, 493.88],  # E G# B
             start=0.0,
-            duration=1.0
+            duration=1.0,
         ),
         NoteEvent(pitch_hz=440.00, start=1.0, duration=0.5),  # A4
         NoteEvent(pitch_hz=493.88, start=1.5, duration=0.5),  # B4
         ChordEvent(
             pitches_hz=[440.00, 554.37, 659.26],  # A C# E
             start=2.0,
-            duration=1.0
+            duration=1.0,
         ),
     ]
     return events
@@ -62,7 +62,7 @@ def demo_mixed():
 def main():
     """Main CLI entry point."""
     args = sys.argv[1:]
-    
+
     if not args or args[0] == "help":
         print("tabsynth - Guitar tablature synthesis from musical events")
         print()
@@ -76,30 +76,30 @@ def main():
         print("  tabsynth demo-notes")
         print("  tabsynth demo-chords")
         return
-    
+
     command = args[0]
-    
+
     if command == "demo-notes":
         print("Demo: Single Notes")
         print("-" * 50)
         events = demo_notes()
         tab = events_to_tablature(events, output_format="ascii")
         print(tab)
-        
+
     elif command == "demo-chords":
         print("Demo: Chord Events")
         print("-" * 50)
         events = demo_chords()
         tab = events_to_tablature(events, output_format="ascii")
         print(tab)
-        
+
     elif command == "demo-mixed":
         print("Demo: Mixed Notes and Chords")
         print("-" * 50)
         events = demo_mixed()
         tab = events_to_tablature(events, output_format="ascii")
         print(tab)
-        
+
     else:
         print(f"Unknown command: {command}")
         print("Run 'tabsynth help' for usage information")

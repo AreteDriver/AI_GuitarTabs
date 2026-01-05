@@ -4,7 +4,7 @@ import math
 
 # Standard tuning frequencies (Hz) for strings 6 (lowest) to 1 (highest)
 STANDARD_TUNING_HZ: dict[int, float] = {
-    6: 82.4069,   # E2
+    6: 82.4069,  # E2
     5: 110.0000,  # A2
     4: 146.8324,  # D3
     3: 195.9977,  # G3
@@ -17,16 +17,15 @@ NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 
 
 def build_fretboard(
-    open_string_hz: dict[int, float],
-    max_fret: int = 24
+    open_string_hz: dict[int, float], max_fret: int = 24
 ) -> dict[int, dict[int, float]]:
     """
     Build a fretboard mapping of string -> fret -> pitch_hz.
-    
+
     Args:
         open_string_hz: Dictionary mapping string number to open string frequency
         max_fret: Maximum fret number (default 24)
-    
+
     Returns:
         Dictionary: fretboard[string][fret] = pitch_hz
     """
@@ -43,26 +42,26 @@ def build_fretboard(
 def cents_diff(a: float, b: float) -> float:
     """
     Calculate the pitch difference in cents between two frequencies.
-    
+
     Args:
         a: First frequency in Hz
         b: Second frequency in Hz
-    
+
     Returns:
         Difference in cents (1200 cents = 1 octave)
     """
     if a <= 0 or b <= 0:
-        return float('inf')
+        return float("inf")
     return 1200 * math.log2(a / b)
 
 
 def hz_to_midi(hz: float) -> float:
     """
     Convert frequency in Hz to MIDI note number.
-    
+
     Args:
         hz: Frequency in Hz
-    
+
     Returns:
         MIDI note number (A440 = 69)
     """
@@ -74,10 +73,10 @@ def hz_to_midi(hz: float) -> float:
 def hz_to_pitch_class(hz: float) -> str:
     """
     Convert frequency to pitch class name (C, C#, D, etc.).
-    
+
     Args:
         hz: Frequency in Hz
-    
+
     Returns:
         Pitch class name (one of NOTE_NAMES)
     """

@@ -9,6 +9,7 @@ PlayableKind = Literal["note", "chord"]
 @dataclass
 class NoteEvent:
     """A single detected note."""
+
     pitch_hz: float
     start: float
     duration: float
@@ -26,6 +27,7 @@ class NoteEvent:
 @dataclass
 class ChordEvent:
     """A detected chord (multiple pitches)."""
+
     pitches_hz: list[float]
     start: float
     duration: float
@@ -52,6 +54,7 @@ class PlayableState:
     A playable guitar configuration (note or chord).
     Represents how to play notes on specific strings/frets.
     """
+
     start: float
     duration: float
     kind: PlayableKind
