@@ -141,6 +141,7 @@ def test_generate_chord_candidates_default_fretboard():
 
 def test_generate_candidates_unknown_event_type():
     """Test generate_candidates returns empty for unknown event type."""
+
     # Create an object that's not a NoteEvent or ChordEvent
     class UnknownEvent:
         pass

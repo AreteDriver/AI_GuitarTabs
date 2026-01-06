@@ -1,9 +1,13 @@
 """Tests for tablature rendering functions."""
 
 import json
-import pytest
 from tabsynth.model import PlayableState
-from tabsynth.render import render_ascii, render_json, render_compact, format_tablature_section
+from tabsynth.render import (
+    render_ascii,
+    render_json,
+    render_compact,
+    format_tablature_section,
+)
 
 
 def _make_note_state(string: int, fret: int, start: float = 0.0) -> PlayableState:
@@ -20,7 +24,9 @@ def _make_note_state(string: int, fret: int, start: float = 0.0) -> PlayableStat
     )
 
 
-def _make_chord_state(frets: dict[int, int], chord_id: str = None, start: float = 0.0) -> PlayableState:
+def _make_chord_state(
+    frets: dict[int, int], chord_id: str = None, start: float = 0.0
+) -> PlayableState:
     """Helper to create a chord state."""
     strings = set(frets.keys())
     fret_vals = list(frets.values())
