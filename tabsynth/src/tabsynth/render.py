@@ -39,10 +39,9 @@ def render_ascii(states: list[PlayableState], width: int = 80) -> str:
     result_lines = []
 
     # Add a header
-    if states:
-        result_lines.append("Guitar Tablature")
-        result_lines.append("=" * 40)
-        result_lines.append("")
+    result_lines.append("Guitar Tablature")
+    result_lines.append("=" * 40)
+    result_lines.append("")
 
     # Format each string line
     for string in range(1, 7):

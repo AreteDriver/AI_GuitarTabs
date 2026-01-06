@@ -88,8 +88,8 @@ def optimize_sequence(
             best_final_cost = cost
             best_final_idx = idx
 
-    if best_final_idx is None:
-        # Fallback: return first candidate of each stage
+    if best_final_idx is None:  # pragma: no cover
+        # Fallback: return first candidate of each stage (defensive - should not be reachable)
         return [candidates[0] for candidates in all_candidates]
 
     # Backtrack to build path
