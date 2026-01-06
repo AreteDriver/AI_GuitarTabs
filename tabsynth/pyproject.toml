@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "tabsynth"
-version = "1.0.4"
+version = "1.0.5"
 description = "Convert musical events to playable guitar tablature via DP optimization"
 readme = "README.md"
 requires-python = ">=3.10"
