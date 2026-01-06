@@ -15,10 +15,26 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=7.0"]
+dev = ["pytest>=7.0", "pytest-cov>=4.0"]
 
 [project.scripts]
 tabsynth = "tabsynth.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "--cov=tabsynth --cov-report=term-missing --cov-report=xml --cov-fail-under=80"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["src/tabsynth"]
+branch = true
+omit = ["src/tabsynth/cli.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "if __name__ == .__main__.:",
+]

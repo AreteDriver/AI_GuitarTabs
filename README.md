@@ -3,6 +3,7 @@
 Professional desktop application for converting guitar audio to tablature in real-time.
 
 [![CI](https://github.com/AreteDriver/AI_GuitarTabs/actions/workflows/ci.yml/badge.svg)](https://github.com/AreteDriver/AI_GuitarTabs/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/AreteDriver/AI_GuitarTabs/graph/badge.svg)](https://codecov.io/gh/AreteDriver/AI_GuitarTabs)
 ![Platform](https://img.shields.io/badge/platform-Windows-blue)
 ![Python](https://img.shields.io/badge/python-3.10+-green)
 ![License](https://img.shields.io/badge/license-MIT-blue)

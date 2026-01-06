@@ -37,7 +37,14 @@ jobs:
         run: |
           cd tabsynth
           pip install -e ".[dev]"
-      - name: Run tests
+      - name: Run tests with coverage
         run: |
           cd tabsynth
           pytest -v
+      - name: Upload coverage to Codecov
+        if: matrix.python-version == '3.11'
+        uses: codecov/codecov-action@v4
+        with:
+          files: tabsynth/coverage.xml
+          fail_ci_if_error: false
+          token: ${{ secrets.CODECOV_TOKEN }}
