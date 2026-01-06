@@ -158,3 +158,26 @@ def test_pipeline_reproducibility():
 
     # Should produce identical results
     assert result1 == result2
+
+
+def test_pipeline_set_templates():
+    """Test pipeline set_templates method."""
+    pipeline = TabSynthPipeline()
+    original_count = len(pipeline.templates)
+
+    # Replace with custom templates
+    custom = [
+        ChordTemplate(
+            id="test",
+            frets=[0, 0, 0, 0, 0, 0],
+            barre=False,
+            pitch_classes={"E"},
+            span=0,
+            tags=set(),
+        )
+    ]
+    pipeline.set_templates(custom)
+
+    assert len(pipeline.templates) == 1
+    assert pipeline.templates[0].id == "test"
+    assert len(pipeline.templates) != original_count

@@ -169,3 +169,22 @@ def test_match_chord_template_all_none_frets():
 
     result = match_chord_template(chord, bad_template, fretboard)
     assert result is None
+
+
+def test_generate_candidates_note_default_fretboard():
+    """Test generate_candidates for note uses default fretboard when None."""
+    note = NoteEvent(pitch_hz=440.0, start=0.0, duration=0.5)
+    # Explicitly pass fretboard=None to test the default path
+    candidates = generate_candidates(note, fretboard=None)
+    assert len(candidates) > 0
+    for c in candidates:
+        assert c.kind == "note"
+
+
+def test_generate_candidates_note_with_fretboard():
+    """Test generate_candidates for note with explicit fretboard (non-None branch)."""
+    note = NoteEvent(pitch_hz=440.0, start=0.0, duration=0.5)
+    fretboard = build_fretboard(STANDARD_TUNING_HZ)
+    # Pass explicit fretboard to cover the 174->177 branch
+    candidates = generate_candidates(note, fretboard=fretboard)
+    assert len(candidates) > 0

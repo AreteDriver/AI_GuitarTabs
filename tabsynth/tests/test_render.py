@@ -71,6 +71,24 @@ class TestRenderAscii:
         assert "Chords:" in result
         assert "E_major" in result
 
+    def test_no_chord_legend_when_no_chords(self):
+        """Test render_ascii doesn't show legend when no chord_ids."""
+        states = [_make_note_state(string=1, fret=5)]
+        result = render_ascii(states)
+        assert "Chords:" not in result
+
+    def test_chord_legend_dedupes(self):
+        """Test render_ascii deduplicates chord IDs in legend."""
+        states = [
+            _make_chord_state({1: 0, 2: 0}, chord_id="Am"),
+            _make_chord_state({1: 0, 2: 0}, chord_id="Am"),  # Same chord twice
+            _make_chord_state({1: 2, 2: 2}, chord_id="Bm"),
+        ]
+        result = render_ascii(states)
+        # Should only list each chord once
+        assert result.count("Am") == 1
+        assert result.count("Bm") == 1
+
 
 class TestRenderJson:
     """Tests for render_json function."""
