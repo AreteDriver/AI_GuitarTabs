@@ -104,3 +104,22 @@ def test_fretboard_accuracy():
 
     # String 1 (E4), fret 5 should be A4 (440 Hz)
     assert abs(fretboard[1][5] - 440.0) < 1.0
+
+
+def test_cents_diff_zero_frequency():
+    """Test cents_diff returns infinity for zero or negative frequencies."""
+    import math
+
+    # Zero frequency
+    assert math.isinf(cents_diff(0, 440.0))
+    assert math.isinf(cents_diff(440.0, 0))
+
+    # Negative frequency
+    assert math.isinf(cents_diff(-440.0, 440.0))
+    assert math.isinf(cents_diff(440.0, -440.0))
+
+
+def test_hz_to_midi_zero_frequency():
+    """Test hz_to_midi returns 0 for zero or negative frequencies."""
+    assert hz_to_midi(0) == 0.0
+    assert hz_to_midi(-440.0) == 0.0
