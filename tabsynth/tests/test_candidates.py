@@ -129,3 +129,43 @@ def test_candidate_properties():
         # For single notes, min/max/mean should be the same
         assert c.min_fret == c.max_fret
         assert c.mean_fret == c.min_fret
+
+
+def test_generate_chord_candidates_default_fretboard():
+    """Test generate_chord_candidates uses default fretboard when None."""
+    chord = ChordEvent(pitches_hz=[329.63, 415.30, 493.88], start=0.0, duration=1.0)
+    # Pass fretboard=None explicitly
+    candidates = generate_chord_candidates(chord, V1_TEMPLATES, fretboard=None)
+    assert len(candidates) > 0
+
+
+def test_generate_candidates_unknown_event_type():
+    """Test generate_candidates returns empty for unknown event type."""
+    # Create an object that's not a NoteEvent or ChordEvent
+    class UnknownEvent:
+        pass
+
+    unknown = UnknownEvent()
+    result = generate_candidates(unknown)
+    assert result == []
+
+
+def test_match_chord_template_all_none_frets():
+    """Test match_chord_template returns None when template has all None frets."""
+    from tabsynth.templates import ChordTemplate
+
+    # Create a template with all None frets (invalid but tests the branch)
+    bad_template = ChordTemplate(
+        id="bad",
+        frets=[None, None, None, None, None, None],
+        barre=False,
+        pitch_classes={"E"},
+        span=0,
+        tags=set(),
+    )
+
+    chord = ChordEvent(pitches_hz=[329.63], start=0.0, duration=1.0)
+    fretboard = build_fretboard(STANDARD_TUNING_HZ)
+
+    result = match_chord_template(chord, bad_template, fretboard)
+    assert result is None

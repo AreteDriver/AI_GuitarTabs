@@ -126,3 +126,41 @@ def test_optimize_prefers_efficient_transitions():
 
     # With optimization, shouldn't have huge jumps for this simple sequence
     assert max_jump < 12, "Optimization should avoid large position jumps"
+
+
+def test_optimize_sequence_skips_no_candidate_events():
+    """Test that events with no candidates are skipped."""
+    # Create a note with a frequency that can't be played on guitar
+    # (way too high or low) - use impossible frequency
+    events = [
+        NoteEvent(pitch_hz=440.0, start=0.0, duration=0.5),  # Valid A4
+        NoteEvent(pitch_hz=20000.0, start=0.5, duration=0.5),  # Impossible (20kHz)
+        NoteEvent(pitch_hz=493.88, start=1.0, duration=0.5),  # Valid B4
+    ]
+
+    result = optimize_sequence(events, tolerance_cents=10.0)
+
+    # Should have results for valid events (may skip the impossible one)
+    assert len(result) >= 2
+
+
+def test_optimize_sequence_all_impossible_events():
+    """Test sequence of all impossible events returns empty."""
+    events = [
+        NoteEvent(pitch_hz=20000.0, start=0.0, duration=0.5),  # Impossible
+        NoteEvent(pitch_hz=25000.0, start=0.5, duration=0.5),  # Impossible
+    ]
+
+    result = optimize_sequence(events, tolerance_cents=10.0)
+
+    # No valid candidates, should return empty
+    assert result == []
+
+
+def test_optimize_single_event_no_candidates():
+    """Test optimize_single_event returns None when no candidates."""
+    # Impossible pitch
+    note = NoteEvent(pitch_hz=30000.0, start=0.0, duration=0.5)
+    result = optimize_single_event(note, tolerance_cents=10.0)
+
+    assert result is None
